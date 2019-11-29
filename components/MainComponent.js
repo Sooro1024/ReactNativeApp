@@ -11,9 +11,12 @@ const MainComponent = ({ currentCategory }) => {
     <View style={styles.main}>
       <ContetntWraper
         nativeWith={nativeWith}
-        currentCategory={currentCategory}
+        currentCategoryID={currentCategory.id}
       />
-      <SideDrawer nativeWith={nativeWith} />
+      <SideDrawer
+        nativeWith={nativeWith}
+        currentCategoryName={currentCategory.name}
+      />
     </View>
   );
 };

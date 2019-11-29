@@ -11,7 +11,13 @@ export const getCategoris = () => async dispatch => {
   }
 };
 
-export const sellectCategory = payload => ({
-  type: SELECT_CURRENT_CATEGORY,
-  payload
-});
+export const sellectCategory = payload => {
+  const category = { ...payload };
+  const categoryNameUpperCase =
+    category.name[0].toUpperCase() + category.name.slice(1);
+  category.name = categoryNameUpperCase;
+  return {
+    type: SELECT_CURRENT_CATEGORY,
+    payload: category
+  };
+};

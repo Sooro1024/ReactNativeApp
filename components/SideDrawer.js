@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Animated, Button, Easing, StyleSheet } from "react-native";
-import CategoriesList from "./CategoriesList";
+import CategoriesContainer from "./CategoriesContainer";
 
-export default function SideDrawer({ nativeWith }) {
+export default function SideDrawer({ nativeWith, currentCategoryName }) {
   const [state] = useState(new Animated.Value(-nativeWith));
 
   const [open, setOpen] = useState(false);
@@ -34,11 +34,13 @@ export default function SideDrawer({ nativeWith }) {
           <View style={styles.headerButton}>
             <Button color="#f4e02b" title="Menu" onPress={handler} />
           </View>
-          <Text style={styles.headerLabel}>Cats</Text>
+          <Text style={styles.headerLabel}>{`Cats${
+            currentCategoryName ? " " + currentCategoryName : ""
+          }`}</Text>
         </View>
       </View>
       <Animated.View style={{ ...styles.sideBar, left: state }}>
-        <CategoriesList sideDrawerTogle={setOpen} />
+        <CategoriesContainer sideDrawerTogle={setOpen} />
       </Animated.View>
     </>
   );

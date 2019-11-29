@@ -1,6 +1,6 @@
 import {
   GET_CAT_PHOTOS_BY_CATEGORY_ID,
-  GET_MORE_IN_CURRENT_CATEGORY
+  GET_MORE_IN_CURRENT_CATEGORY_SUCCESS
 } from "../constants";
 
 const initialState = {
@@ -17,17 +17,12 @@ export default (state = initialState, { type, payload }) => {
       return { ...state, panding: true, error: null };
     case GET_CAT_PHOTOS_BY_CATEGORY_ID.SUCCESS:
       return { ...state, panding: false, catPhotos: payload };
-    case GET_MORE_IN_CURRENT_CATEGORY.ERROR:
-      return { ...state, error: payload, panding: false };
-    case GET_MORE_IN_CURRENT_CATEGORY.PANDING:
-      return { ...state, panding: true, error: null };
-    case GET_MORE_IN_CURRENT_CATEGORY.SUCCESS:
+    case GET_MORE_IN_CURRENT_CATEGORY_SUCCESS:
       return {
         ...state,
         panding: false,
         catPhotos: [...state.catPhotos, ...payload]
       };
-
     default:
       return state;
   }

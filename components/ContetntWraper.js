@@ -3,8 +3,8 @@ import { View, StyleSheet } from "react-native";
 import WelcomeScreen from "./WelcomeScreen";
 import PhotosScreen from "./PhotosScreen";
 
-const ContetntWraper = ({ nativeWith, currentCategory }) => {
-  if (currentCategory === null) {
+const ContetntWraper = ({ nativeWith, currentCategoryID }) => {
+  if (currentCategoryID === null) {
     return (
       <View style={styles.container}>
         <WelcomeScreen />
@@ -15,7 +15,7 @@ const ContetntWraper = ({ nativeWith, currentCategory }) => {
       <View style={styles.container}>
         <PhotosScreen
           nativeWith={nativeWith}
-          currentCategory={currentCategory}
+          currentCategoryID={currentCategoryID}
         />
       </View>
     );

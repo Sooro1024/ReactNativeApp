@@ -5,7 +5,7 @@ const initialState = {
   panding: true,
   error: null,
   fetchCounter: 0,
-  currentCategory: null
+  currentCategory: { id: null, name: null }
 };
 
 export default (state = initialState, { type, payload }) => {
