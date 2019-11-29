@@ -1,10 +1,11 @@
-import { GET_CATEGORIES } from "../constants";
+import { GET_CATEGORIES, SELECT_CURRENT_CATEGORY } from "../constants";
 
 const initialState = {
   categoriesList: undefined,
   panding: true,
   error: null,
-  fetchCounter: 0
+  fetchCounter: 0,
+  currentCategory: null
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -20,6 +21,8 @@ export default (state = initialState, { type, payload }) => {
         panding: false,
         categoriesList: payload
       };
+    case SELECT_CURRENT_CATEGORY:
+      return { ...state, currentCategory: payload };
     default:
       return state;
   }

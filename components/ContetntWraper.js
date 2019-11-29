@@ -1,8 +1,25 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
+import WelcomeScreen from "./WelcomeScreen";
+import PhotosScreen from "./PhotosScreen";
 
-const ContetntWraper = ({ children }) => {
-  return <View style={styles.container}>{children}</View>;
+const ContetntWraper = ({ nativeWith, currentCategory }) => {
+  if (currentCategory === null) {
+    return (
+      <View style={styles.container}>
+        <WelcomeScreen />
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.container}>
+        <PhotosScreen
+          nativeWith={nativeWith}
+          currentCategory={currentCategory}
+        />
+      </View>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
@@ -13,8 +30,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "center",
-    marginTop: "18%",
-    paddingTop: "10%"
+    marginTop: "18%"
   }
 });
 

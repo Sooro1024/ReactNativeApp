@@ -9,14 +9,20 @@ import {
   StyleSheet
 } from "react-native";
 import { connect } from "react-redux";
-import { getCategoris as getCategorisAction } from "../store/actions/categorisActions";
+import {
+  getCategoris as getCategorisAction,
+  sellectCategory as sellectCategoryAction
+} from "../store/actions/categorisActions";
 
 const CategoriesList = ({
   categoriesList,
   error,
   panding,
   getCategoris,
-  fetchCounter
+  fetchCounter,
+  sideDrawerTogle,
+  chooseCategori,
+  currentCategory
 }) => {
   useEffect(() => {
     getCategoris();
@@ -30,6 +36,11 @@ const CategoriesList = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error]);
 
+  const selectCategory = id => {
+    chooseCategori(id);
+    sideDrawerTogle(false);
+  };
+
   if (panding === false && error === null) {
     return (
       <>
@@ -40,7 +51,11 @@ const CategoriesList = ({
             data={categoriesList}
             renderItem={({ item }) => (
               <View style={styles.categoryButton}>
-                <Button title={item.name} color="#1ead16" />
+                <Button
+                  title={item.name}
+                  color={currentCategory === item.id ? "#1ead16" : "#f4e02b"}
+                  onPress={selectCategory.bind(this, item.id)}
+                />
               </View>
             )}
           />
@@ -98,15 +113,14 @@ const mapStateToProps = state => ({
   categoriesList: state.categories.categoriesList,
   error: state.categories.error,
   panding: state.categories.panding,
-  fetchCounter: state.categories.fetchCounter
+  fetchCounter: state.categories.fetchCounter,
+  currentCategory: state.categories.currentCategory
 });
 
 const mapDispatchToProps = dispatch => ({
-  getCategoris: () => dispatch(getCategorisAction())
+  getCategoris: () => dispatch(getCategorisAction()),
+  chooseCategori: id => dispatch(sellectCategoryAction(id))
 });
 
 // prettier-ignore
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CategoriesList);
+export default connect(mapStateToProps, mapDispatchToProps)(CategoriesList);

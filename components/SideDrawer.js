@@ -38,7 +38,7 @@ export default function SideDrawer({ nativeWith }) {
         </View>
       </View>
       <Animated.View style={{ ...styles.sideBar, left: state }}>
-        <CategoriesList />
+        <CategoriesList sideDrawerTogle={setOpen} />
       </Animated.View>
     </>
   );

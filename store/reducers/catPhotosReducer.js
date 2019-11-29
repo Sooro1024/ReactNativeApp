@@ -4,26 +4,29 @@ import {
 } from "../constants";
 
 const initialState = {
-  currentCategoryID: null,
   error: null,
   catPhotos: null,
-  panding: null
+  panding: false
 };
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
     case GET_CAT_PHOTOS_BY_CATEGORY_ID.ERROR:
-      return { ...state, ...payload };
+      return { ...state, error: payload, panding: false };
     case GET_CAT_PHOTOS_BY_CATEGORY_ID.PANDING:
-      return { ...state, ...payload };
+      return { ...state, panding: true, error: null };
     case GET_CAT_PHOTOS_BY_CATEGORY_ID.SUCCESS:
-      return { ...state, ...payload };
+      return { ...state, panding: false, catPhotos: payload };
     case GET_MORE_IN_CURRENT_CATEGORY.ERROR:
-      return { ...state, ...payload };
+      return { ...state, error: payload, panding: false };
     case GET_MORE_IN_CURRENT_CATEGORY.PANDING:
-      return { ...state, ...payload };
+      return { ...state, panding: true, error: null };
     case GET_MORE_IN_CURRENT_CATEGORY.SUCCESS:
-      return { ...state, ...payload };
+      return {
+        ...state,
+        panding: false,
+        catPhotos: [...state.catPhotos, ...payload]
+      };
 
     default:
       return state;

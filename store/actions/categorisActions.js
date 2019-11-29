@@ -1,4 +1,4 @@
-import { GET_CATEGORIES } from "../constants";
+import { GET_CATEGORIES, SELECT_CURRENT_CATEGORY } from "../constants";
 
 export const getCategoris = () => async dispatch => {
   try {
@@ -10,3 +10,8 @@ export const getCategoris = () => async dispatch => {
     dispatch({ type: GET_CATEGORIES.ERROR, payload: error });
   }
 };
+
+export const sellectCategory = payload => ({
+  type: SELECT_CURRENT_CATEGORY,
+  payload
+});

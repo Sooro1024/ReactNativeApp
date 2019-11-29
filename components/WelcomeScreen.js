@@ -6,7 +6,7 @@ const WelcomeScreen = () => {
   return (
     <>
       <View style={styles.boxContainer}>
-        <Image resizeMode="center" source={CatLogo} />
+        <Image resizeMode="center" style={styles.imageStyle} source={CatLogo} />
       </View>
       <View style={styles.boxContainer}>
         <Text style={styles.welcomeText}>
@@ -31,19 +31,20 @@ const styles = StyleSheet.create({
     paddingTop: "10%"
   },
   boxContainer: {
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
     display: "flex",
     width: "60%",
     height: "50%",
-    marginBottom: "5%"
+    marginTop: "5%"
   },
   welcomeText: {
     textAlign: "center",
     fontWeight: "bold",
     color: "#1ead16",
     fontSize: 18
-  }
+  },
+  imageStyle: { flex: 1 }
 });
 
 export default WelcomeScreen;
