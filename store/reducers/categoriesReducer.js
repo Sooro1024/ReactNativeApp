@@ -3,7 +3,8 @@ import { GET_CATEGORIES } from "../constants";
 const initialState = {
   categoriesList: undefined,
   panding: true,
-  error: null
+  error: null,
+  fetchCounter: 0
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -11,16 +12,13 @@ export default (state = initialState, { type, payload }) => {
     case GET_CATEGORIES.ERROR:
       return { ...state, error: payload, panding: false };
     case GET_CATEGORIES.PANDING:
-      return { ...state, panding: true };
+      return { ...state, panding: true, fetchCounter: state.fetchCounter + 1 };
     case GET_CATEGORIES.SUCCESS:
       return {
         ...state,
         error: null,
         panding: false,
-        categoriesList:
-          state.categoriesList === undefined
-            ? payload
-            : [...state.categoriesList, ...payload]
+        categoriesList: payload
       };
     default:
       return state;

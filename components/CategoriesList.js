@@ -11,12 +11,26 @@ import {
 import { connect } from "react-redux";
 import { getCategoris as getCategorisAction } from "../store/actions/categorisActions";
 
-const CategoriesList = ({ categoriesList, error, panding, getCategoris }) => {
+const CategoriesList = ({
+  categoriesList,
+  error,
+  panding,
+  getCategoris,
+  fetchCounter
+}) => {
   useEffect(() => {
     getCategoris();
-  }, [getCategoris]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  if (panding === false) {
+  useEffect(() => {
+    if (fetchCounter < 2 && error !== null) {
+      getCategoris();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error]);
+
+  if (panding === false && error === null) {
     return (
       <>
         <Text style={styles.categoriesLabel}>Categories</Text>
@@ -26,7 +40,7 @@ const CategoriesList = ({ categoriesList, error, panding, getCategoris }) => {
             data={categoriesList}
             renderItem={({ item }) => (
               <View style={styles.categoryButton}>
-                <Button title={item.name} color="#f4e02b" />
+                <Button title={item.name} color="#1ead16" />
               </View>
             )}
           />
@@ -34,11 +48,20 @@ const CategoriesList = ({ categoriesList, error, panding, getCategoris }) => {
       </>
     );
   } else {
-    return (
-      <View style={styles.louder}>
-        <ActivityIndicator size="large" color="#f4e02b" />
-      </View>
-    );
+    if (fetchCounter >= 2) {
+      return (
+        <View style={styles.louder}>
+          <Text style={styles.errorText}>Pleas check your</Text>
+          <Text style={styles.errorText}>internet connection</Text>
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.louder}>
+          <ActivityIndicator size="large" color="#f4e02b" />
+        </View>
+      );
+    }
   }
 };
 
@@ -64,13 +87,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: "center",
     paddingTop: "2%"
+  },
+  errorText: {
+    color: "#FFFFFF",
+    fontWeight: "bold"
   }
 });
 
 const mapStateToProps = state => ({
   categoriesList: state.categories.categoriesList,
   error: state.categories.error,
-  panding: state.categories.panding
+  panding: state.categories.panding,
+  fetchCounter: state.categories.fetchCounter
 });
 
 const mapDispatchToProps = dispatch => ({

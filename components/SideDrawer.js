@@ -25,6 +25,7 @@ export default function SideDrawer({ nativeWith }) {
         easing: Easing.ease
       }).start();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
   return (
     <>
@@ -33,15 +34,7 @@ export default function SideDrawer({ nativeWith }) {
           <View style={styles.headerButton}>
             <Button color="#f4e02b" title="Menu" onPress={handler} />
           </View>
-          <Text
-            style={{
-              color: "white",
-              textDecorationStyle: "solid",
-              fontSize: 20
-            }}
-          >
-            Cats
-          </Text>
+          <Text style={styles.headerLabel}>Cats</Text>
         </View>
       </View>
       <Animated.View style={{ ...styles.sideBar, left: state }}>
@@ -89,5 +82,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: "100%",
     position: "relative"
+  },
+  headerLabel: {
+    color: "white",
+    textDecorationStyle: "solid",
+    fontSize: 20
   }
 });
